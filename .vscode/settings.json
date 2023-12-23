@@ -1,0 +1,9 @@
+{
+    "editor.fontSize": 14,
+    "editor.rulers": [
+        80,
+        90
+    ],
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.colorTheme": "One Dark Pro Flat",
+}
