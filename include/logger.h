@@ -6,11 +6,12 @@
 #include <time.h>
 
 enum LogLevel {
-    LOG_LEVEL_ERR = 0,
-    LOG_LEVEL_WRN = 1,
-    LOG_LEVEL_INF = 2,
-    LOG_LEVEL_DBG = 3,
-    LOG_LEVEL_TRC = 4
+    LOG_LEVEL_FAT = 0,
+    LOG_LEVEL_ERR = 1,
+    LOG_LEVEL_WRN = 2,
+    LOG_LEVEL_INF = 3,
+    LOG_LEVEL_DBG = 4,
+    LOG_LEVEL_TRC = 5
 };
 
 extern enum LogLevel LOG_LEVEL;
@@ -50,10 +51,10 @@ uint64_t get_monotonic_ns_since(uint64_t ns);
     fprintf(stderr, "[%10ld.%ld ERR]: " M "\n", tspec.tv_sec, tspec.tv_nsec, ##__VA_ARGS__);    \
 }
 
-#define log_err_exit(M, ...) if (LOG_LEVEL >= LOG_LEVEL_ERR) {                                  \
+#define log_fat(M, ...) if (LOG_LEVEL >= LOG_LEVEL_FAT) {                                       \
     struct timespec tspec;                                                                      \
     clock_gettime(CLOCK_MONOTONIC, &tspec);                                                     \
-    fprintf(stderr, "[%10ld.%ld ERR]: " M "\n", tspec.tv_sec, tspec.tv_nsec, ##__VA_ARGS__);    \
+    fprintf(stderr, "[%10ld.%ld FAT]: " M "\n", tspec.tv_sec, tspec.tv_nsec, ##__VA_ARGS__);    \
     exit(1);                                                                                    \
 }
 

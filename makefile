@@ -1,6 +1,12 @@
 CC		= gcc
 FLAGS	= -I.
-CFLAGS	= -fPIC -pedantic -Wall -Wextra
+
+CFLAGS :=
+CFLAGS += -std=gnu99
+CFLAGS += -fPIC
+CFLAGS += -pedantic
+CFLAGS += -Wall
+CFLAGS += -Wextra
 
 bin/cutils: tests/logger.c src/logger/logger.c include/logger.h
 	mkdir -p bin
@@ -8,3 +14,6 @@ bin/cutils: tests/logger.c src/logger/logger.c include/logger.h
 
 tests: bin/cutils
 	bin/cutils
+
+clean:
+	rm -rf bin

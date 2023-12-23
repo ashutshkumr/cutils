@@ -1,5 +1,8 @@
 
+#include <time.h>
+
 #include "include/logger.h"
+
 
 void sum_func() {
     timer_start();
@@ -12,7 +15,7 @@ int main() {
     sum_func();
     log_err("This is just an error");
 
-
     log_trc("this is a macro %d", 5);
+    log_dbg("this is a debug");
     return 0;
 }

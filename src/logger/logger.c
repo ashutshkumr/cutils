@@ -14,7 +14,7 @@ void log_set_level(enum LogLevel level) {
 uint64_t get_monotonic_ns() {
     struct timespec tspec;
     if (clock_gettime(CLOCK_MONOTONIC, &tspec) != 0) {
-        log_err_exit("Could not get current monotonic time");
+        log_fat("Could not get current monotonic time");
     }
 
     return (tspec.tv_sec * 1000000000) + tspec.tv_nsec;
