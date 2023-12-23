@@ -1,19 +1,39 @@
+SHELL	= /bin/sh
 CC		= gcc
-FLAGS	= -I.
 
 CFLAGS :=
 CFLAGS += -std=gnu99
-CFLAGS += -fPIC
 CFLAGS += -pedantic
 CFLAGS += -Wall
 CFLAGS += -Wextra
 
-bin/cutils: tests/logger.c src/logger/logger.c include/logger.h
+FLAGS :=
+FLAGS += -Iinclude
+
+SOFLAGS :=
+SOFLAGS += -fPIC
+SOFLAGS += -shared
+
+LDFLAGS :=
+LDFLAGS += -Lbin
+LDFLAGS += -lcutils
+
+export LD_LIBRARY_PATH := bin:$(LD_LIBRARY_PATH)
+
+SOURCES := $(shell find src -name '*.c')
+INCLUDES := $(shell find include -name '*.h')
+TESTS := $(shell find tests -name '*.c')
+
+bin/libcutils.so: $(SOURCES) $(INCLUDES)
 	mkdir -p bin
-	$(CC) tests/logger.c src/logger/logger.c $(CFLAGS) $(FLAGS) -o bin/cutils
+	$(CC) $(CFLAGS) $(FLAGS) $(SOFLAGS) $(SOURCES) -o bin/libcutils.so
+
+bin/cutils: bin/libcutils.so $(INCLUDES) $(TESTS)
+	mkdir -p bin
+	$(CC) $(CFLAGS) $(FLAGS) $(TESTS) $(LDFLAGS) -o bin/cutils
 
 tests: bin/cutils
-	bin/cutils
+	 bin/cutils
 
 clean:
 	rm -rf bin

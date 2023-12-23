@@ -1,12 +1,10 @@
 
 #include <time.h>
 
-#include "include/logger.h"
-
+#include "logger.h"
 
 void sum_func() {
     timer_start();
-    // log_inf("we are inside sum_func");
     timer_stop();
 }
 

@@ -3,7 +3,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-#include "include/logger.h"
+#include "logger.h"
 
 enum LogLevel LOG_LEVEL =  LOG_LEVEL_ERR;
 
