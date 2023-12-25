@@ -6,6 +6,7 @@ CFLAGS += -std=gnu99
 CFLAGS += -pedantic
 CFLAGS += -Wall
 CFLAGS += -Wextra
+CFLAGS += -g
 
 FLAGS :=
 FLAGS += -Iinclude
@@ -24,6 +25,8 @@ SOURCES := $(shell find src -name '*.c')
 INCLUDES := $(shell find include -name '*.h')
 TESTS := $(shell find tests -name '*.c')
 
+all: tests
+
 bin/libcutils.so: $(SOURCES) $(INCLUDES)
 	mkdir -p bin
 	$(CC) $(CFLAGS) $(FLAGS) $(SOFLAGS) $(SOURCES) -o bin/libcutils.so
@@ -33,7 +36,7 @@ bin/cutils: bin/libcutils.so $(INCLUDES) $(TESTS)
 	$(CC) $(CFLAGS) $(FLAGS) $(TESTS) $(LDFLAGS) -o bin/cutils
 
 tests: bin/cutils
-	 bin/cutils
+	LOG_LEVEL=trace bin/cutils
 
 clean:
 	rm -rf bin
