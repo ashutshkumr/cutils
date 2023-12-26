@@ -4,10 +4,16 @@
 
 #include "logger.h"
 
-void sum_func() {
+int test_timer() {
     timer_start();
-    sleep(0);
+    
+    uint64_t sum = 0;
+    for (uint64_t i = 0; i < 1000000; i++) {
+        sum += i;
+    }
     timer_stop();
+
+    return 0;
 }
 
 int test_logger() {
@@ -27,6 +33,8 @@ int test_logger() {
 
     log_err("Error log without args");
     log_err("Error log with args: %d %s", 1, "str");
+
+    test_timer();
 
     return 0;
 }

@@ -6,7 +6,7 @@ CFLAGS += -std=gnu99
 CFLAGS += -pedantic
 CFLAGS += -Wall
 CFLAGS += -Wextra
-CFLAGS += -g
+CFLAGS += -o3
 
 FLAGS :=
 FLAGS += -Iinclude
