@@ -1,12 +1,14 @@
 SHELL	= /bin/sh
-CC		= gcc
+CC		= clang
 
 CFLAGS :=
-CFLAGS += -std=gnu99
-CFLAGS += -pedantic
+CFLAGS += -std=c99
+CFLAGS += -Wpedantic
 CFLAGS += -Wall
 CFLAGS += -Wextra
+CFLAGS += -Weverything
 CFLAGS += -o3
+CFLAGS += -D_POSIX_C_SOURCE=199309L
 
 FLAGS :=
 FLAGS += -Iinclude

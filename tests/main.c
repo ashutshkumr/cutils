@@ -1,5 +1,6 @@
+#include <stdint.h>
 
-int test_logger();
+#include "tests.h"
 
 int main() {
     test_logger();

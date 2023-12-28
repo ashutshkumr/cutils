@@ -13,9 +13,9 @@
 #define LOG_LEVEL_INPUT_INF "info"
 #define LOG_LEVEL_INPUT_WRN "warning"
 #define LOG_LEVEL_INPUT_ERR "error"
-#define LOG_LEVEL_INPUT_FAT "fatal"
 
 static enum LogLevel LOG_LEVEL = LOG_LEVEL_DEFAULT;
+const enum LogLevel* LOG_LEVEL_PTR = &LOG_LEVEL;
 
 void init_log_level() {
     const char* level = getenv(LOG_LEVEL_ENV);
@@ -28,34 +28,30 @@ void init_log_level() {
             LOG_LEVEL = LOG_LEVEL_DBG;
             return;
         }
-        if (strcmp(LOG_LEVEL_INPUT_TRC, level) == 0) {
-            LOG_LEVEL = LOG_LEVEL_TRC;
+        if (strcmp(LOG_LEVEL_INPUT_INF, level) == 0) {
+            LOG_LEVEL = LOG_LEVEL_INF;
             return;
         }
-        if (strcmp(LOG_LEVEL_INPUT_TRC, level) == 0) {
-            LOG_LEVEL = LOG_LEVEL_TRC;
+        if (strcmp(LOG_LEVEL_INPUT_WRN, level) == 0) {
+            LOG_LEVEL = LOG_LEVEL_WRN;
             return;
         }
-        if (strcmp(LOG_LEVEL_INPUT_TRC, level) == 0) {
-            LOG_LEVEL = LOG_LEVEL_TRC;
+        if (strcmp(LOG_LEVEL_INPUT_ERR, level) == 0) {
+            LOG_LEVEL = LOG_LEVEL_ERR;
             return;
         }
 
-        log_err("Unsupported log level: '%s'", level);
+        log_errorf("Unsupported log level: '%s'", level);
     }
-}
-
-bool can_log(enum LogLevel level) {
-    return LOG_LEVEL >= level;
 }
 
 uint64_t get_monotonic_ns() {
     struct timespec tspec;
     if (clock_gettime(CLOCK_MONOTONIC, &tspec) != 0) {
-        log_fat("Could not get current monotonic time");
+        log_fatal("Could not get current monotonic time");
     }
 
-    return (tspec.tv_sec * 1000000000) + tspec.tv_nsec;
+    return (uint64_t) ((tspec.tv_sec * 1000000000L) + tspec.tv_nsec);
 }
 
 uint64_t get_monotonic_ns_since(uint64_t ns) {
